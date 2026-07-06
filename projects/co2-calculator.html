@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CO₂ Freight Emissions Calculator — Ismael Marechalle</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ismael <span>M.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html" class="active">Projects</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="project-hero">
+  <div class="project-hero-inner">
+    <a href="../projects.html" class="back-link">← Back to Projects</a>
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <span class="type-badge type-ops" style="padding:5px 12px;">Operational Case</span>
+      <span class="tool-tag python" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">Python</span>
+    </div>
+    <h1>CO₂ Freight Emissions Calculator</h1>
+    <p>Python tool using GLEC Framework emission factors to calculate freight carbon footprint by route and mode, with lowest-carbon alternative suggestions.</p>
+    <div class="project-meta">
+      <div class="meta-item">🐍 <strong>Deliverable:</strong> Python CLI script + README</div>
+      <div class="meta-item">📐 <strong>Standard:</strong> GLEC Framework v3</div>
+      <div class="meta-item">🚛 <strong>Modes:</strong> Road, Sea, Air, Rail</div>
+    </div>
+  </div>
+</section>
+
+<div class="project-body">
+
+  <h2>The Problem</h2>
+  <p>Since 2024, large European companies must report Scope 3 emissions under the Corporate Sustainability Reporting Directive (CSRD). Freight transport is typically the largest component of a manufacturer's or retailer's Scope 3 footprint. Yet most companies — especially mid-size ones — still rely on rough estimates or nothing at all.</p>
+  <p>This tool gives any logistics team a quick, standards-based way to calculate the CO₂ footprint of a specific shipment and immediately see whether a different mode would reduce it.</p>
+
+  <h2>The Standard: GLEC Framework</h2>
+  <p>The Global Logistics Emissions Council (GLEC) Framework is the industry standard for freight emissions calculation, recognized by the Science Based Targets initiative (SBTi) and used by major logistics providers (DHL, Maersk, DB Schenker). It defines emission intensity factors in kg CO₂e per tonne-km for each transport mode.</p>
+
+  <div class="info-box">
+    <p><strong>Why this matters for recruiters:</strong> CSRD awareness and emissions calculation capability are increasingly listed as requirements in supply chain analyst and procurement job descriptions in Europe. This project shows you understand the regulatory context, not just the math.</p>
+  </div>
+
+  <h2>Emission Factors Used (GLEC v3)</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-value" style="font-size:1.3rem;">0.062</div>
+      <div class="kpi-label">Road (truck) — kg CO₂e / tonne-km</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value" style="font-size:1.3rem;">0.008</div>
+      <div class="kpi-label">Sea (container) — kg CO₂e / tonne-km</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value" style="font-size:1.3rem;">0.601</div>
+      <div class="kpi-label">Air freight — kg CO₂e / tonne-km</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value" style="font-size:1.3rem;">0.028</div>
+      <div class="kpi-label">Rail — kg CO₂e / tonne-km</div>
+    </div>
+  </div>
+
+  <h2>How It Works</h2>
+
+  <div class="code-block"><span class="comment"># emission_factors.py — GLEC Framework v3</span>
+FACTORS = {
+    <span class="string">"road"</span>: <span class="string">0.062</span>,   <span class="comment"># kg CO2e / tonne-km (full truckload)</span>
+    <span class="string">"sea"</span>:  <span class="string">0.008</span>,   <span class="comment"># kg CO2e / tonne-km (container, avg)</span>
+    <span class="string">"air"</span>:  <span class="string">0.601</span>,   <span class="comment"># kg CO2e / tonne-km (belly + freighter avg)</span>
+    <span class="string">"rail"</span>: <span class="string">0.028</span>,   <span class="comment"># kg CO2e / tonne-km (European avg)</span>
+}
+
+<span class="keyword">def</span> <span class="func">calculate_emissions</span>(weight_t, distance_km, mode):
+    <span class="string">"""Returns CO2e in kg for a given shipment."""</span>
+    factor = FACTORS[mode]
+    <span class="keyword">return</span> weight_t * distance_km * factor
+
+<span class="keyword">def</span> <span class="func">best_alternative</span>(weight_t, distance_km, current_mode):
+    <span class="string">"""Returns the lowest-carbon viable mode."""</span>
+    results = {
+        m: <span class="func">calculate_emissions</span>(weight_t, distance_km, m)
+        <span class="keyword">for</span> m <span class="keyword">in</span> FACTORS
+        <span class="keyword">if</span> m != current_mode
+    }
+    <span class="keyword">return</span> <span class="func">min</span>(results, key=results.get), <span class="func">min</span>(results.values())</div>
+
+  <h2>Sample Output</h2>
+  <div style="background:#0f172a;color:#e2e8f0;border-radius:10px;padding:24px;font-family:'Cascadia Code','Consolas',monospace;font-size:0.82rem;line-height:1.9;margin-bottom:20px;">
+    <span style="color:#64748b;">$ python calculator.py</span><br>
+    <span style="color:#93c5fd;">Route:</span> Dakar → Marseille<br>
+    <span style="color:#93c5fd;">Weight:</span> 25 tonnes<br>
+    <span style="color:#93c5fd;">Mode:</span> Road<br>
+    <span style="color:#93c5fd;">Distance:</span> 4,800 km<br><br>
+    <span style="color:#fbbf24;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br>
+    <span style="color:#86efac;">CO₂ emissions: 7,440 kg CO₂e</span><br>
+    <span style="color:#86efac;">Equivalent to: 37,200 km driven by car</span><br><br>
+    <span style="color:#fbbf24;">Lowest-carbon alternative: SEA</span><br>
+    <span style="color:#64748b;">Sea freight: 960 kg CO₂e (−87%)</span>
+  </div>
+
+  <h2>Limitations & Assumptions</h2>
+  <ul>
+    <li>Uses average emission factors — actual values vary by vessel age, load factor, fuel type</li>
+    <li>Does not account for refrigerated transport (higher energy intensity)</li>
+    <li>Distance is straight-line or user-provided — real routing adds 10–30% for road</li>
+    <li>Future version: integrate a distance API and per-carrier emission profiles</li>
+  </ul>
+
+  <h2>Why This Project at Junior Level</h2>
+  <p>This is Python project #2 in the portfolio (after ABC-XYZ), demonstrating progression: functions, dictionaries, user input handling, formatted output. The business context — CSRD, Scope 3, GLEC — shows awareness of the regulatory environment that supply chain managers are already dealing with.</p>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;">
+    <a href="https://github.com/ismael-marechalle/co2-freight-calculator" class="btn btn-primary" target="_blank">View on GitHub →</a>
+    <a href="../projects.html" class="btn btn-navy">← All Projects</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Ismael Marechalle · <a href="https://github.com/ismael-marechalle">GitHub</a> · <a href="https://linkedin.com/in/ismael-marechalle">LinkedIn</a></p>
+</footer>
+
+</body>
+</html>

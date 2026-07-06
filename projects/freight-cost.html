@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freight Cost Comparison Tool — Ismael Marechalle</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ismael <span>M.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html" class="active">Projects</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="project-hero">
+  <div class="project-hero-inner">
+    <a href="../projects.html" class="back-link">← Back to Projects</a>
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <span class="type-badge type-ops" style="padding:5px 12px;">Operational Case</span>
+      <span class="tool-tag excel" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">Excel</span>
+    </div>
+    <h1>Freight Cost Comparison Tool</h1>
+    <p>Interactive Excel workbook comparing road, rail, and sea freight across 6 routes — returning cost, transit time, CO₂, and an automated best-option recommendation.</p>
+    <div class="project-meta">
+      <div class="meta-item">📊 <strong>Deliverable:</strong> Interactive Excel workbook</div>
+      <div class="meta-item">🗺️ <strong>Routes:</strong> 6 origin/destination pairs</div>
+      <div class="meta-item">🚛 <strong>Modes:</strong> Road, Rail, Sea</div>
+    </div>
+  </div>
+</section>
+
+<div class="project-body">
+
+  <h2>The Problem</h2>
+  <p>Every time a shipper needs to move cargo between two points, they face the same three-way trade-off: cost, speed, and carbon footprint. In practice, most companies make this decision informally — a quick call to a freight forwarder, a rule-of-thumb, or simple habit. A structured comparison tool makes the decision explicit, repeatable, and defensible.</p>
+  <p>This workbook lets a logistics coordinator or procurement analyst select a route and cargo weight and instantly see a side-by-side comparison across all three modes, with a recommendation logic built in.</p>
+
+  <h2>The 6 Routes</h2>
+  <div style="overflow-x:auto;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+      <thead>
+        <tr style="background:var(--navy);color:white;">
+          <th style="padding:10px 14px;text-align:left;border-radius:6px 0 0 0;">Route</th>
+          <th style="padding:10px 14px;text-align:left;">Modes Available</th>
+          <th style="padding:10px 14px;text-align:left;border-radius:0 6px 0 0;">Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 14px;font-weight:600;">Dakar → Abidjan</td>
+          <td style="padding:10px 14px;">Road, Sea</td>
+          <td style="padding:10px 14px;color:var(--text-muted);">West Africa coastal corridor</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);background:var(--bg);">
+          <td style="padding:10px 14px;font-weight:600;">Marseille → Lyon</td>
+          <td style="padding:10px 14px;">Road, Rail</td>
+          <td style="padding:10px 14px;color:var(--text-muted);">France domestic, rail-competitive</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 14px;font-weight:600;">Barcelona → Paris</td>
+          <td style="padding:10px 14px;">Road, Rail, Sea</td>
+          <td style="padding:10px 14px;color:var(--text-muted);">Iberian corridor, all modes viable</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);background:var(--bg);">
+          <td style="padding:10px 14px;font-weight:600;">Hamburg → Warsaw</td>
+          <td style="padding:10px 14px;">Road, Rail</td>
+          <td style="padding:10px 14px;color:var(--text-muted);">Central Europe, growing rail network</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 14px;font-weight:600;">Shanghai → Le Havre</td>
+          <td style="padding:10px 14px;">Sea, Air (for comparison)</td>
+          <td style="padding:10px 14px;color:var(--text-muted);">Long-haul intercontinental</td>
+        </tr>
+        <tr style="background:var(--bg);">
+          <td style="padding:10px 14px;font-weight:600;">Casablanca → Dakar</td>
+          <td style="padding:10px 14px;">Road, Sea</td>
+          <td style="padding:10px 14px;color:var(--text-muted);">North–West Africa, mixed infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Workbook Structure</h2>
+  <ol class="step-list">
+    <li><strong>Input Sheet</strong> — user selects route (dropdown) and enters cargo weight in tonnes. All other calculations update automatically via named range references.</li>
+    <li><strong>Rate Matrix (hidden)</strong> — cost per tonne by route and mode (€), transit time in days, CO₂ factor in kg per tonne. This sheet is the single source of truth — updating rates here cascades everywhere.</li>
+    <li><strong>Comparison Output</strong> — side-by-side table showing total cost (€), transit time (days), CO₂ (kg), and a cost-per-day-in-transit metric that captures the speed-cost trade-off in one number.</li>
+    <li><strong>Recommendation Logic</strong> — three IF/INDEX formulas that output: "Best Cost," "Best Time," and "Best Carbon" mode. A fourth cell outputs a weighted recommendation based on user-defined priority weights (sliders via data validation).</li>
+    <li><strong>Chart Tab</strong> — clustered bar chart auto-updating from the comparison output, ready to paste into a slide or report.</li>
+  </ol>
+
+  <h2>Key Excel Techniques</h2>
+  <ul>
+    <li>Named ranges for all rate inputs — no hardcoded numbers in formulas</li>
+    <li>Data validation dropdowns for route and priority selection</li>
+    <li>INDEX/MATCH for dynamic rate lookup across route × mode matrix</li>
+    <li>Weighted scoring formula: <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:0.82rem;">= cost_weight * norm_cost + time_weight * norm_time + carbon_weight * norm_carbon</code></li>
+    <li>Conditional formatting to highlight the winning mode per criterion</li>
+    <li>Dynamic chart title using cell reference to show selected route name</li>
+  </ul>
+
+  <h2>Sample Output</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top:3px solid var(--green);">
+      <div class="kpi-value" style="font-size:1.1rem;color:var(--green);">Road</div>
+      <div class="kpi-label">Best cost — Barcelona → Paris, 20t</div>
+    </div>
+    <div class="kpi-card" style="border-top:3px solid var(--blue);">
+      <div class="kpi-value" style="font-size:1.1rem;color:var(--blue);">Road</div>
+      <div class="kpi-label">Best time (2 days vs. 4 rail / 6 sea)</div>
+    </div>
+    <div class="kpi-card" style="border-top:3px solid var(--purple);">
+      <div class="kpi-value" style="font-size:1.1rem;color:var(--purple);">Rail</div>
+      <div class="kpi-label">Best carbon (−55% vs. road)</div>
+    </div>
+    <div class="kpi-card" style="border-top:3px solid var(--orange);">
+      <div class="kpi-value" style="font-size:1.1rem;color:var(--orange);">Rail</div>
+      <div class="kpi-label">Weighted recommendation (balanced priority)</div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;">
+    <a href="https://github.com/ismael-marechalle/freight-cost-tool" class="btn btn-primary" target="_blank">View on GitHub →</a>
+    <a href="../projects.html" class="btn btn-navy">← All Projects</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Ismael Marechalle · <a href="https://github.com/ismael-marechalle">GitHub</a> · <a href="https://linkedin.com/in/ismael-marechalle">LinkedIn</a></p>
+</footer>
+
+</body>
+</html>

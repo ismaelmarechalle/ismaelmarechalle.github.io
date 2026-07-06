@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier Lead Time Dashboard — Ismael Marechalle</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ismael <span>M.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html" class="active">Projects</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="project-hero">
+  <div class="project-hero-inner">
+    <a href="../projects.html" class="back-link">← Back to Projects</a>
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <span class="type-badge type-data" style="padding:5px 12px;">Data Analysis</span>
+      <span class="tool-tag pbi" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">Power BI</span>
+      <span class="tool-tag excel" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">Excel</span>
+    </div>
+    <h1>Supplier Lead Time Dashboard</h1>
+    <p>Power BI report tracking on-time delivery performance, lead time variance, and underperforming suppliers across 12 months of purchase order data.</p>
+    <div class="project-meta">
+      <div class="meta-item">📊 <strong>Deliverable:</strong> Power BI report (PDF export)</div>
+      <div class="meta-item">📁 <strong>Dataset:</strong> 420 simulated purchase orders</div>
+      <div class="meta-item">🏭 <strong>Scope:</strong> 15 suppliers, 5 product categories</div>
+    </div>
+  </div>
+</section>
+
+<div class="project-body">
+
+  <h2>The Problem</h2>
+  <p>Procurement teams often track supplier performance in scattered spreadsheets, making it hard to spot trends or compare suppliers objectively. When a supplier starts slipping — longer lead times, more late deliveries — the problem is usually visible only in hindsight, after it has already caused a stockout or a production delay.</p>
+  <p>This dashboard gives procurement managers a single, interactive view of supplier reliability over time, with enough granularity to act early.</p>
+
+  <h2>Dataset</h2>
+  <p>The Excel data source contains 420 purchase orders spanning 12 months with the following fields:</p>
+  <ul>
+    <li><strong>PO number, PO date</strong></li>
+    <li><strong>Supplier name & ID</strong> (15 suppliers)</li>
+    <li><strong>Product category</strong> — raw materials, packaging, spare parts, consumables, equipment</li>
+    <li><strong>Country of origin</strong> — France, Germany, China, Turkey, Morocco, Senegal</li>
+    <li><strong>Promised delivery date</strong> — as committed by supplier at PO confirmation</li>
+    <li><strong>Actual delivery date</strong> — recorded at goods receipt</li>
+    <li><strong>PO value (€)</strong></li>
+  </ul>
+  <p>Derived columns calculated in Power BI: <em>lead time (days)</em>, <em>delay (days)</em>, <em>on-time flag (yes/no)</em>, <em>late category (on time / &lt;3 days / 3–7 days / &gt;7 days)</em>.</p>
+
+  <h2>Dashboard Pages</h2>
+  <ol class="step-list">
+    <li><strong>Overview</strong> — overall OTD rate, average lead time, total POs, % late by delay band. Slicers: month range, product category, country of origin.</li>
+    <li><strong>Supplier Scorecard</strong> — ranked bar chart of OTD rate by supplier. Conditional formatting flags suppliers below 85% threshold in red. Drill-through to individual supplier detail.</li>
+    <li><strong>Lead Time Trends</strong> — line chart showing monthly average lead time per supplier. Reveals seasonal patterns and deteriorating suppliers before OTD rate drops.</li>
+    <li><strong>Delay Distribution</strong> — histogram of delivery delays in days. Shows whether lateness is clustered (systemic issue) or scattered (random variation).</li>
+    <li><strong>Top Underperformers</strong> — table of the 5 suppliers with highest average delay in the selected period, with PO count and total spend for context.</li>
+  </ol>
+
+  <h2>Key Insights (Sample)</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-value">78%</div>
+      <div class="kpi-label">Overall on-time delivery rate</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">18.4</div>
+      <div class="kpi-label">Average lead time in days</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">3</div>
+      <div class="kpi-label">Suppliers below 70% OTD threshold</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">+4.2d</div>
+      <div class="kpi-label">Average delay when late</div>
+    </div>
+  </div>
+
+  <h2>Power BI Features Used</h2>
+  <ul>
+    <li>DAX measures: OTD rate, average lead time, delay band classification</li>
+    <li>Slicers and cross-filtering between visuals</li>
+    <li>Conditional formatting on matrix and bar charts</li>
+    <li>Drill-through pages for supplier-level detail</li>
+    <li>Bookmarks for toggling between "All suppliers" and "Underperformers only" views</li>
+    <li>Published to Power BI Service (free account) for shareable URL</li>
+  </ul>
+
+  <h2>Business Value</h2>
+  <p>The dashboard answers the three questions a procurement manager asks every Monday morning:</p>
+  <ul>
+    <li>Which suppliers are underperforming right now?</li>
+    <li>Is the problem getting better or worse over time?</li>
+    <li>Which product categories are most exposed to supply risk?</li>
+  </ul>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;">
+    <a href="https://github.com/ismael-marechalle/supplier-lead-time-dashboard" class="btn btn-primary" target="_blank">View on GitHub →</a>
+    <a href="../projects.html" class="btn btn-navy">← All Projects</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Ismael Marechalle · <a href="https://github.com/ismael-marechalle">GitHub</a> · <a href="https://linkedin.com/in/ismael-marechalle">LinkedIn</a></p>
+</footer>
+
+</body>
+</html>

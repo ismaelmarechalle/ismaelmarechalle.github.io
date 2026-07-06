@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Ismael Marechalle</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Ismael <span>M.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="project-hero">
+  <div class="project-hero-inner">
+    <h1>Projects</h1>
+    <p>Data analysis, operational case studies, and professional deliverables — built with open data and real-world supply chain problems.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+
+    <!-- Filter labels -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;align-items:center;">
+      <span style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">Filter:</span>
+      <span class="type-badge type-data" style="cursor:pointer;padding:5px 12px;">Data Analysis</span>
+      <span class="type-badge type-ops" style="cursor:pointer;padding:5px 12px;">Operational Case</span>
+      <span class="type-badge type-pro" style="cursor:pointer;padding:5px 12px;">Professional Deliverable</span>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- 1 -->
+      <a href="projects/west-africa-corridor.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-orange">🗺️</div>
+          <span class="type-badge type-pro">Professional Deliverable</span>
+        </div>
+        <h3>West Africa Corridor Risk Map</h3>
+        <p>Consultant-style briefing on the Dakar–Bamako–Niamey corridor: infrastructure gaps, border dwell times, seasonal disruptions, and mitigation strategies. Uses World Bank LPI and UNCTAD data.</p>
+        <div class="tool-tags">
+          <span class="tool-tag excel">Excel</span>
+          <span class="tool-tag pdf">PowerPoint / PDF</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+      <!-- 2 -->
+      <a href="projects/supplier-dashboard.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-purple">📊</div>
+          <span class="type-badge type-data">Data Analysis</span>
+        </div>
+        <h3>Supplier Lead Time Dashboard</h3>
+        <p>Power BI report built on 12 months of simulated purchase order data. Shows on-time delivery rates, lead time variance trends, and top underperforming suppliers with category and period slicers.</p>
+        <div class="tool-tags">
+          <span class="tool-tag pbi">Power BI</span>
+          <span class="tool-tag excel">Excel</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+      <!-- 3 -->
+      <a href="projects/port-turnaround.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-blue">⚓</div>
+          <span class="type-badge type-data">Data Analysis</span>
+        </div>
+        <h3>Port Turnaround Time Analysis</h3>
+        <p>Excel dashboard analyzing 6 months of simulated vessel call data for a West African port. Identifies average turnaround by vessel type, peak congestion periods, and key bottlenecks.</p>
+        <div class="tool-tags">
+          <span class="tool-tag excel">Excel</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+      <!-- 4 -->
+      <a href="projects/co2-calculator.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-green">🌱</div>
+          <span class="type-badge type-ops">Operational Case</span>
+        </div>
+        <h3>CO₂ Freight Emissions Calculator</h3>
+        <p>Python CLI tool using GLEC Framework emission factors. Input route, weight, and mode — outputs CO₂ in kg, an equivalent comparison, and a lowest-carbon alternative recommendation.</p>
+        <div class="tool-tags">
+          <span class="tool-tag python">Python</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+      <!-- 5 -->
+      <a href="projects/inventory-abc-xyz.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-teal">📦</div>
+          <span class="type-badge type-data">Data Analysis</span>
+        </div>
+        <h3>Inventory ABC-XYZ Classification</h3>
+        <p>Python notebook that ingests a 500-SKU synthetic dataset and runs dual classification: ABC (revenue contribution) and XYZ (demand variability), producing a segmentation matrix and actionable recommendations.</p>
+        <div class="tool-tags">
+          <span class="tool-tag python">Python</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+      <!-- 6 -->
+      <a href="projects/sql-query-library.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-orange">🗄️</div>
+          <span class="type-badge type-data">Data Analysis</span>
+        </div>
+        <h3>SQL Inventory Query Library</h3>
+        <p>A normalized SQLite database schema for supply chain operations, paired with 12 annotated business queries covering reorder points, stockout frequency, supplier performance, and more.</p>
+        <div class="tool-tags">
+          <span class="tool-tag sql">SQL</span>
+          <span class="tool-tag python">Python</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+      <!-- 7 -->
+      <a href="projects/freight-cost.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-blue">🚛</div>
+          <span class="type-badge type-ops">Operational Case</span>
+        </div>
+        <h3>Freight Cost Comparison Tool</h3>
+        <p>Interactive Excel workbook comparing road, rail, and sea freight across 6 origin/destination pairs. Returns cost, transit time, and CO₂ estimates — plus an automated best-option recommendation.</p>
+        <div class="tool-tags">
+          <span class="tool-tag excel">Excel</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+      <!-- 8 -->
+      <a href="projects/erp-process-mapping.html" class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-purple">🔄</div>
+          <span class="type-badge type-pro">Professional Deliverable</span>
+        </div>
+        <h3>ERP Process Mapping: Order-to-Cash</h3>
+        <p>Detailed O2C process map showing each step from customer order to cash receipt, ERP module touchpoints, and a 2-page analysis identifying 3 common failure points and how ERP configuration addresses them.</p>
+        <div class="tool-tags">
+          <span class="tool-tag drawio">draw.io</span>
+          <span class="tool-tag pdf">PDF</span>
+        </div>
+        <span class="card-link">View project</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Ismael Marechalle · <a href="https://github.com/ismael-marechalle">GitHub</a> · <a href="https://linkedin.com/in/ismael-marechalle">LinkedIn</a></p>
+</footer>
+
+</body>
+</html>

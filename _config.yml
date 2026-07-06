@@ -1,0 +1,17 @@
+title: Ismael Marechalle — Supply Chain Portfolio
+description: Supply chain & logistics graduate | Port ops | ERP | Excel → Python | FR / EN / ES / Wolof
+url: "https://ismael-marechalle.github.io"
+baseurl: ""
+
+author:
+  name: Ismael Marechalle
+  email: ismaelmarechalle71@gmail.com
+
+# GitHub Pages settings
+theme: null
+plugins: []
+
+# Exclude from build
+exclude:
+  - README.md
+  - "*.sh"

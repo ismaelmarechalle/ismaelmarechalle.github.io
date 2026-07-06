@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Port Turnaround Time Analysis — Ismael Marechalle</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ismael <span>M.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html" class="active">Projects</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="project-hero">
+  <div class="project-hero-inner">
+    <a href="../projects.html" class="back-link">← Back to Projects</a>
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <span class="type-badge type-data" style="padding:5px 12px;">Data Analysis</span>
+      <span class="tool-tag excel" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">Excel</span>
+    </div>
+    <h1>Port Turnaround Time Analysis</h1>
+    <p>Excel dashboard identifying vessel congestion patterns and operational bottlenecks from 6 months of simulated West African port call data.</p>
+    <div class="project-meta">
+      <div class="meta-item">📊 <strong>Deliverable:</strong> Excel dashboard + 1-page ops report</div>
+      <div class="meta-item">📁 <strong>Dataset:</strong> 280 simulated vessel calls</div>
+      <div class="meta-item">⚓ <strong>Context:</strong> West African port operations</div>
+    </div>
+  </div>
+</section>
+
+<div class="project-body">
+
+  <h2>The Problem</h2>
+  <p>Port congestion is one of the top cost drivers in maritime logistics. Every hour a vessel waits at anchor or idles at berth is demurrage the shipowner pays — and delay the cargo owner absorbs in their supply chain. Port operations teams need a clear view of where time is lost: is it waiting for a berth? Slow cargo handling? Customs clearance? Documentation?</p>
+  <p>This project builds a structured analysis tool that breaks down vessel turnaround time into its component phases and identifies where the bottlenecks are concentrated.</p>
+
+  <h2>Dataset</h2>
+  <p>The dataset simulates 280 vessel calls over 6 months at a fictional West African port. Each row represents one vessel call with the following fields:</p>
+  <ul>
+    <li><strong>Vessel ID & name</strong> — anonymized identifiers</li>
+    <li><strong>Vessel type</strong> — container, bulk carrier, tanker, RoRo, general cargo</li>
+    <li><strong>Cargo type</strong> — dry bulk, liquid bulk, containerized, vehicles</li>
+    <li><strong>ETA / ATA</strong> — estimated and actual time of arrival</li>
+    <li><strong>Berth arrival / departure</strong> — when vessel moved from anchorage to berth</li>
+    <li><strong>Operations start / end</strong> — cargo handling window</li>
+    <li><strong>ATD</strong> — actual time of departure</li>
+  </ul>
+
+  <div class="info-box">
+    <p>The dataset is reproducible — generated with a fixed random seed so anyone can download the Excel file and verify the numbers.</p>
+  </div>
+
+  <h2>What the Dashboard Shows</h2>
+  <ol class="step-list">
+    <li><strong>Summary KPIs tab</strong> — average total turnaround time, average waiting time at anchor, average cargo operations time, on-berth idle time</li>
+    <li><strong>By Vessel Type tab</strong> — pivot table + bar chart comparing turnaround across vessel types; container ships vs. bulk carriers tell very different stories</li>
+    <li><strong>Monthly Trend tab</strong> — line chart showing whether performance improved or degraded over the 6-month window</li>
+    <li><strong>Peak Congestion tab</strong> — heatmap by day-of-week and hour showing when the port is most congested</li>
+    <li><strong>Bottleneck Identification tab</strong> — waterfall chart decomposing average turnaround into: waiting at anchor → berthing maneuver → cargo ops → documentation → departure clearance</li>
+  </ol>
+
+  <h2>Key Findings (Sample Output)</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-value">38h</div>
+      <div class="kpi-label">Average total turnaround time</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">11h</div>
+      <div class="kpi-label">Average anchor waiting time (29% of total)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">Bulk</div>
+      <div class="kpi-label">Vessel type with longest avg. turnaround (52h)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">Mon–Tue</div>
+      <div class="kpi-label">Peak congestion days</div>
+    </div>
+  </div>
+
+  <h2>1-Page Operations Report</h2>
+  <p>Alongside the dashboard, the project includes a styled PDF "Port Performance Summary" formatted like an actual operations report. It contains:</p>
+  <ul>
+    <li>3-sentence executive summary</li>
+    <li>Top 3 bottleneck findings with supporting numbers</li>
+    <li>2 recommendations for the port operations team</li>
+  </ul>
+  <p>This demonstrates the ability to communicate analytical findings to a non-technical audience — a skill that matters as much as the analysis itself.</p>
+
+  <h2>Excel Techniques Used</h2>
+  <ul>
+    <li>Pivot tables with calculated fields for time differences</li>
+    <li>Dynamic charts linked to slicers (vessel type, month, cargo type)</li>
+    <li>Conditional formatting for the congestion heatmap</li>
+    <li>AVERAGEIFS, COUNTIFS, TEXT functions for KPI calculations</li>
+    <li>Named ranges for clean formula references</li>
+  </ul>
+
+  <h2>Connection to Real Experience</h2>
+  <p>This project is directly inspired by observations from my port operations internship. The waiting time at anchor, the documentation bottleneck, the Monday congestion spike — these are patterns I saw in real port operations reporting. The numbers are simulated; the logic is real.</p>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;">
+    <a href="https://github.com/ismael-marechalle/port-turnaround-analysis" class="btn btn-primary" target="_blank">View on GitHub →</a>
+    <a href="../projects.html" class="btn btn-navy">← All Projects</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Ismael Marechalle · <a href="https://github.com/ismael-marechalle">GitHub</a> · <a href="https://linkedin.com/in/ismael-marechalle">LinkedIn</a></p>
+</footer>
+
+</body>
+</html>

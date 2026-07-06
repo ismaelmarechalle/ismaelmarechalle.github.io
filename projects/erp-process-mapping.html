@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERP Process Mapping: Order-to-Cash — Ismael Marechalle</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ismael <span>M.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html" class="active">Projects</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="project-hero">
+  <div class="project-hero-inner">
+    <a href="../projects.html" class="back-link">← Back to Projects</a>
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <span class="type-badge type-pro" style="padding:5px 12px;">Professional Deliverable</span>
+      <span class="tool-tag drawio" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">draw.io</span>
+      <span class="tool-tag pdf" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">PDF</span>
+    </div>
+    <h1>ERP Process Mapping: Order-to-Cash</h1>
+    <p>Detailed O2C process map with ERP module touchpoints, swimlane diagram, and a 2-page analysis identifying the 3 most common failure points in ERP-managed order flows.</p>
+    <div class="project-meta">
+      <div class="meta-item">🔄 <strong>Deliverable:</strong> draw.io diagram + PDF analysis</div>
+      <div class="meta-item">📋 <strong>Process:</strong> Order-to-Cash (O2C) end-to-end</div>
+      <div class="meta-item">💻 <strong>ERP scope:</strong> Sales, Inventory, Finance modules</div>
+    </div>
+  </div>
+</section>
+
+<div class="project-body">
+
+  <h2>The Problem</h2>
+  <p>Many candidates list "ERP experience" on their CV but cannot explain what actually happens inside the system when an order is placed. Recruiters and hiring managers — especially in supply chain coordination, order management, and logistics roles — want to see that you understand the data flows, not just that you clicked through screens.</p>
+  <p>This project documents the Order-to-Cash process end-to-end: every step, every ERP module involved, every decision point, and the three places where things most commonly go wrong.</p>
+
+  <div class="info-box">
+    <p><strong>Why O2C:</strong> Order-to-Cash is the most universal supply chain process — it exists in every company that sells something. Understanding it deeply signals readiness for order management, logistics coordination, and supply chain analyst roles across industries.</p>
+  </div>
+
+  <h2>Process Steps Mapped</h2>
+
+  <ol class="step-list">
+    <li>
+      <strong>Customer Order Receipt</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">Order enters via EDI, email, or web portal → ERP creates a Sales Order (SO). Module: <em>Sales / Order Management</em>.</span>
+    </li>
+    <li>
+      <strong>Credit Check</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">ERP checks customer credit limit against outstanding balance. If exceeded: order hold → manual approval required. Module: <em>Finance / Accounts Receivable</em>.</span>
+    </li>
+    <li>
+      <strong>Inventory Availability Check</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">ATP (Available-to-Promise) logic checks on-hand stock, open POs, and existing commitments. Module: <em>Inventory Management</em>.</span>
+    </li>
+    <li>
+      <strong>Inventory Reservation</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">Quantity reserved for this SO — reduces available inventory for other orders. Triggers replenishment signal if stock falls below reorder point.</span>
+    </li>
+    <li>
+      <strong>Warehouse Pick, Pack & Ship</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">WMS generates pick list. Warehouse team picks, packs, generates shipping label and packing list. ERP records goods issue → inventory decremented. Module: <em>WMS / Warehouse Management</em>.</span>
+    </li>
+    <li>
+      <strong>Transport & Delivery</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">Carrier picks up. Tracking number linked to SO. ERP may integrate with TMS for real-time visibility. Module: <em>TMS / Logistics</em>.</span>
+    </li>
+    <li>
+      <strong>Customer Receipt Confirmation</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">Proof of delivery (POD) received. ERP records delivery confirmation. Any discrepancies (short delivery, damage) trigger claims process.</span>
+    </li>
+    <li>
+      <strong>Invoice Generation</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">ERP auto-generates invoice based on SO and goods issue data. Invoice sent to customer (EDI or email). Module: <em>Finance / Billing</em>.</span>
+    </li>
+    <li>
+      <strong>Cash Receipt & Reconciliation</strong><br>
+      <span style="font-size:0.875rem;color:var(--text-muted);">Payment received → matched against open invoice in ERP. SO closed. Revenue recognized. Module: <em>Finance / AR</em>.</span>
+    </li>
+  </ol>
+
+  <h2>The 3 Most Common Failure Points</h2>
+
+  <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px;">
+
+    <div style="background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:20px;">
+      <p style="font-weight:700;color:var(--navy);margin-bottom:6px;">① ATP Inaccuracy — Phantom Inventory</p>
+      <p style="font-size:0.875rem;color:var(--text);margin-bottom:6px;">ERP shows stock available but physical warehouse is empty (due to unreported damage, theft, or counting error). O2C proceeds to pick stage, then fails — causing emergency expediting or customer delay.</p>
+      <p style="font-size:0.82rem;color:var(--text-muted);"><strong>ERP fix:</strong> Cycle counting integration — regular partial counts feed the ERP in real time. Variance threshold triggers automatic inventory hold pending recount.</p>
+    </div>
+
+    <div style="background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--orange);border-radius:0 8px 8px 0;padding:20px;">
+      <p style="font-weight:700;color:var(--navy);margin-bottom:6px;">② Credit Hold Without Visibility</p>
+      <p style="font-size:0.875rem;color:var(--text);margin-bottom:6px;">Order silently placed on credit hold with no notification to sales, customer service, or the customer. Days pass before anyone notices. Customer relationship damaged; revenue delayed.</p>
+      <p style="font-size:0.82rem;color:var(--text-muted);"><strong>ERP fix:</strong> Automated alert workflow — credit hold triggers instant email to sales rep + customer service manager + customer (configurable). SLA timer starts at hold creation.</p>
+    </div>
+
+    <div style="background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--purple);border-radius:0 8px 8px 0;padding:20px;">
+      <p style="font-weight:700;color:var(--navy);margin-bottom:6px;">③ Invoice / Delivery Mismatch</p>
+      <p style="font-size:0.875rem;color:var(--text);margin-bottom:6px;">Invoice is generated for the full ordered quantity but the shipment was short (partial delivery). Customer disputes invoice; payment is delayed pending resolution. Finance closes month with inflated AR.</p>
+      <p style="font-size:0.82rem;color:var(--text-muted);"><strong>ERP fix:</strong> Invoice auto-generated from goods issue record, not from SO quantity. Any partial delivery automatically creates a partial invoice. Residual quantity stays open on the SO.</p>
+    </div>
+
+  </div>
+
+  <h2>Deliverables in the Repository</h2>
+  <ul>
+    <li><strong>O2C_process_map.drawio</strong> — editable swimlane diagram (Sales, Warehouse, Finance, Logistics lanes) with ERP module annotations at each step</li>
+    <li><strong>O2C_process_map.pdf</strong> — exported PDF for sharing without draw.io</li>
+    <li><strong>O2C_analysis.pdf</strong> — 2-page written analysis: process overview, the 3 failure points, ERP configuration recommendations</li>
+    <li><strong>README.md</strong> — explains the scope, ERP assumptions, and how to read the diagram</li>
+  </ul>
+
+  <h2>Connection to Real Experience</h2>
+  <p>During my supply chain coordination internship, I worked directly with ERP order flows — tracking SOs, flagging anomalies, and coordinating between the warehouse and customer service teams when deliveries had discrepancies. The failure points documented here are not theoretical: two of the three (phantom inventory and invoice mismatch) are issues I observed in real operations.</p>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;">
+    <a href="https://github.com/ismael-marechalle/erp-process-mapping" class="btn btn-primary" target="_blank">View on GitHub →</a>
+    <a href="../projects.html" class="btn btn-navy">← All Projects</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Ismael Marechalle · <a href="https://github.com/ismael-marechalle">GitHub</a> · <a href="https://linkedin.com/in/ismael-marechalle">LinkedIn</a></p>
+</footer>
+
+</body>
+</html>

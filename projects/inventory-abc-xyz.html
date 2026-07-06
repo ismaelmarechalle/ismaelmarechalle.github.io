@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory ABC-XYZ Classification — Ismael Marechalle</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ismael <span>M.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html" class="active">Projects</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="project-hero">
+  <div class="project-hero-inner">
+    <a href="../projects.html" class="back-link">← Back to Projects</a>
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <span class="type-badge type-data" style="padding:5px 12px;">Data Analysis</span>
+      <span class="tool-tag python" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);">Python</span>
+    </div>
+    <h1>Inventory ABC-XYZ Classification</h1>
+    <p>Python notebook applying dual ABC (revenue contribution) and XYZ (demand variability) classification to a 500-SKU synthetic dataset, producing a segmentation matrix with operational recommendations.</p>
+    <div class="project-meta">
+      <div class="meta-item">📓 <strong>Deliverable:</strong> Jupyter notebook + CSV output</div>
+      <div class="meta-item">📁 <strong>Dataset:</strong> 500 SKUs × 12 months demand history</div>
+      <div class="meta-item">🐍 <strong>Libraries:</strong> pandas, matplotlib, numpy</div>
+    </div>
+  </div>
+</section>
+
+<div class="project-body">
+
+  <h2>The Problem</h2>
+  <p>Not all inventory deserves the same management attention. A company that treats a fast-moving, high-value component the same way as a slow-moving, low-value spare part will over-invest in safety stock for some SKUs and stockout on others. ABC-XYZ classification gives supply chain teams a data-driven way to segment their catalog and apply differentiated policies.</p>
+
+  <h2>The Method</h2>
+  <p><strong>ABC classification</strong> ranks SKUs by annual revenue contribution:</p>
+  <ul>
+    <li><strong>A</strong> — top 80% of revenue (typically ~20% of SKUs)</li>
+    <li><strong>B</strong> — next 15% of revenue</li>
+    <li><strong>C</strong> — bottom 5% of revenue (typically ~50% of SKUs)</li>
+  </ul>
+  <p><strong>XYZ classification</strong> ranks SKUs by demand variability (coefficient of variation across 12 months):</p>
+  <ul>
+    <li><strong>X</strong> — CV &lt; 0.5 — stable, predictable demand</li>
+    <li><strong>Y</strong> — CV 0.5–1.0 — moderate variability</li>
+    <li><strong>Z</strong> — CV &gt; 1.0 — highly variable or intermittent demand</li>
+  </ul>
+  <p>Combining both axes produces a 3×3 segmentation matrix (AX through CZ) that tells you both how important a SKU is and how hard it is to forecast.</p>
+
+  <h2>Code Walkthrough</h2>
+
+  <div class="code-block"><span class="comment"># 1. Generate synthetic dataset (reproducible)</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+np.random.seed(<span class="string">42</span>)
+n_skus = <span class="string">500</span>
+months = [<span class="string">f"M{i:02d}"</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="string">1</span>, <span class="string">13</span>)]
+
+<span class="comment"># Simulate monthly demand with varying volatility per SKU</span>
+demand = np.random.negative_binomial(
+    n=np.random.uniform(<span class="string">2</span>, <span class="string">20</span>, n_skus).reshape(-<span class="string">1</span>,<span class="string">1</span>),
+    p=<span class="string">0.4</span>, size=(n_skus, <span class="string">12</span>)
+)
+
+<span class="comment"># 2. ABC: rank by total annual revenue contribution</span>
+df[<span class="string">'annual_revenue'</span>] = df[months].sum(axis=<span class="string">1</span>) * df[<span class="string">'unit_price'</span>]
+df = df.sort_values(<span class="string">'annual_revenue'</span>, ascending=<span class="keyword">False</span>)
+df[<span class="string">'cumulative_pct'</span>] = df[<span class="string">'annual_revenue'</span>].cumsum() / df[<span class="string">'annual_revenue'</span>].sum()
+df[<span class="string">'ABC'</span>] = pd.cut(df[<span class="string">'cumulative_pct'</span>],
+    bins=[<span class="string">0</span>, <span class="string">0.8</span>, <span class="string">0.95</span>, <span class="string">1.0</span>], labels=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>])
+
+<span class="comment"># 3. XYZ: coefficient of variation across 12 months</span>
+df[<span class="string">'cv'</span>] = df[months].std(axis=<span class="string">1</span>) / df[months].mean(axis=<span class="string">1</span>)
+df[<span class="string">'XYZ'</span>] = pd.cut(df[<span class="string">'cv'</span>],
+    bins=[<span class="string">0</span>, <span class="string">0.5</span>, <span class="string">1.0</span>, np.inf], labels=[<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>])
+
+<span class="comment"># 4. Combined segment</span>
+df[<span class="string">'segment'</span>] = df[<span class="string">'ABC'</span>].astype(str) + df[<span class="string">'XYZ'</span>].astype(str)</div>
+
+  <h2>Output: Segmentation Matrix</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-left:3px solid #10b981;">
+      <div class="kpi-value" style="color:#10b981;">AX</div>
+      <div class="kpi-label">High value, stable demand → prioritize stock availability</div>
+    </div>
+    <div class="kpi-card" style="border-left:3px solid #f59e0b;">
+      <div class="kpi-value" style="color:#f59e0b;">AZ</div>
+      <div class="kpi-label">High value, volatile demand → safety stock + close monitoring</div>
+    </div>
+    <div class="kpi-card" style="border-left:3px solid #64748b;">
+      <div class="kpi-value" style="color:#64748b;">CX</div>
+      <div class="kpi-label">Low value, stable demand → simple replenishment rule</div>
+    </div>
+    <div class="kpi-card" style="border-left:3px solid #ef4444;">
+      <div class="kpi-value" style="color:#ef4444;">CZ</div>
+      <div class="kpi-label">Low value, volatile → consider make-to-order or drop</div>
+    </div>
+  </div>
+
+  <p>The notebook outputs a heatmap of SKU count by segment, a bar chart of revenue by ABC class, and a CSV with all SKUs labeled — ready for import into an ERP or WMS.</p>
+
+  <h2>Operational Recommendations per Segment</h2>
+  <ul>
+    <li><strong>AX:</strong> Continuous review, tight reorder point, supplier partnership for guaranteed availability</li>
+    <li><strong>AY:</strong> Periodic review with safety stock buffer; forecast review every quarter</li>
+    <li><strong>AZ:</strong> High safety stock or consignment stock; explore demand stabilization with the commercial team</li>
+    <li><strong>BX/BY:</strong> Standard periodic review; automate replenishment</li>
+    <li><strong>CZ:</strong> Evaluate deletion from catalog or switch to on-demand procurement</li>
+  </ul>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;">
+    <a href="https://github.com/ismael-marechalle/inventory-abc-xyz" class="btn btn-primary" target="_blank">View on GitHub →</a>
+    <a href="../projects.html" class="btn btn-navy">← All Projects</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 Ismael Marechalle · <a href="https://github.com/ismael-marechalle">GitHub</a> · <a href="https://linkedin.com/in/ismael-marechalle">LinkedIn</a></p>
+</footer>
+
+</body>
+</html>

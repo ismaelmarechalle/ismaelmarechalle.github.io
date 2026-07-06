@@ -21,24 +21,5 @@
 
 ---
 
-## Profile
-
-- 🎓 BUT Management Logistique et Transport — IUT de Perpignan (2022–2025)
-- 🚢 Internships: port operations, maritime agency (Dakar), supply chain coordination (France)
-- 🌍 Languages: French (native), Wolof (native), English (professional), Spanish (intermediate)
-- 📊 Tools: Excel (advanced), Power BI, Python (learning), SQL (learning)
-- 📧 [ismaelmarechalle71@gmail.com](mailto:ismaelmarechalle71@gmail.com)
-- 💼 [LinkedIn](https://linkedin.com/in/ismael-marechalle)
-
----
-
-## How to Deploy
-
-1. Create a GitHub repository named `ismael-marechalle.github.io`
-2. Push this folder contents to the `main` branch
-3. Go to repo Settings → Pages → Source: `main` branch, `/ (root)`
-4. Site goes live at `https://ismael-marechalle.github.io` within a few minutes
-
----
 
 *Built with plain HTML/CSS — no frameworks, no build step.*

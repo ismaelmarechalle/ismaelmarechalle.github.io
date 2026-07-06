@@ -2,7 +2,7 @@
 
 > Junior supply chain professional with hands-on experience in port operations and ERP systems across France and Senegal. Building data-driven logistics skills to solve real distribution and procurement challenges.
 
-🌐 **Live site:** [ismael-marechalle.github.io](https://ismael-marechalle.github.io)
+🌐 **Live site:** [ismaelmarechalle.github.io](https://ismaelmarechalle.github.io)
 
 ---
 
